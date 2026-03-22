@@ -1,3 +1,3 @@
 print(
-    "Hello, CFG"
+    'Hello, Code First Girls'
 )
