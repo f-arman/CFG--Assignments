@@ -2,7 +2,7 @@
 GitHub account to create a repository to work in. Showing how to use Git, its commands and GitHub usage for collaborative projects using various markdown features ,pull requests, reviews etc.
 # CFG--Assignments
 ## Description about Assignement
-This is my first assignment in CFG Foundation Module. I have created this  *GitHub* *account to create a __repository__ to work in. Showing how to use _ _Git_ _, its commands and GitHub usage for <ins>collaborative</ins> projects using various markdown features ,pull requests, reviews etc.
+This is my first assignment in CFG Foundation Module. I have created this  *GitHub* account to create a __repository__ to work in. Showing how to use _ _Git_ _, its commands and GitHub usage for <ins>collaborative</ins> projects using various markdown features ,pull requests, reviews etc.
 
 ### About Me
 Hi, I'm Fatima, I am an Economics and Social Studies BA graduate from the University of Manchester and I recently completed my Masters in Economics. During both my degrees I have completed assignments using python and SQL. Currently I am working as a teaching assistant and a social media manager. I joined CFG to break into the tech industry, we recently completed week 1 and this assignment is to demonstrate and apply the skills I have learnt on how to use Git and GitHub.
