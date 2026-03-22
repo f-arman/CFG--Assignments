@@ -18,6 +18,10 @@ Adding files to a branch using the command **git add [add file name]** to add a 
 Adding commits using the *git commit -m <add creative message.*  Adding a commit permanetly stores chagnes made from the staging area inside of the repository. 
 Opening a pull request using the command **git pull** to fetch and merge any commits from the tracking remote branch
 Merging and deploying to main branch
+### What is a .gitignore used for ?
+Used to determine which files and folders that need to be disregarded or not tracked. So its used to keep the repository clean to avoid files that are not important to be committed .
+### What is a requirements.txt used for ?
+Used to list the external dependencies a project requires in a python file. The purpose of it is to allow for a consistent smooth operation across machines to make it easy to install the required dependencies at one time.
 ### git history
 ![alt text](<Screenshot 2026-03-22 at 23.17.37.png>)
 ![alt text](<Screenshot 2026-03-22 at 23.11.15.png>)
