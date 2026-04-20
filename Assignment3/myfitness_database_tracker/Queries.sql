@@ -1,7 +1,8 @@
--- Data filtering by slecting specific records from the table and filtering the data using the WHERE clause
--- only users that meet the specified condition are returned acoording to the given constraints in the WHERE clause
+-- Data filtering by selecting specific records from the table and filtering the data using the WHERE clause
+-- only users that meet the given condition are returned according to the given constraints in the WHERE clause
 
--- Retrieving users data by their date of birth to allow the system to identify and keep track young fitness, notice patterns to draw conclusions regarding young fitness members and to apply aged based conditions when needed
+-- Retrieving users data by their date of birth to allow the system to identify and keep track of specified young fitness members to check for any patterns 
+-- This will help draw conclusions regarding young fitness members and be able to apply aged based conditions when needed 
 
 SELECT * 
 FROM myfitness_database_tracker.User_info
@@ -44,10 +45,8 @@ FROM myfitness_database_tracker.User_daily_exercise_checkin
 order by Exercise_duration and Steps_Count desc 
 ;
 
--- cleaning the data to remove any duplicates 
--- -- Viewing all the data stored in user_progress table, then deleting a specific user
--- using the WHERE clause to target the user with ID 14895.
--- LIMIT 1 ensures that only one matching row is removed for safety, to not delete all the data.
+-- Cleaning a member from User_Progress that is no longer a user 
+-- Limit 1 ensures that only one matching row is removed for safety to not delete all the data 
 SELECT *
 From myfitness_database_tracker.User_progress;
 DELETE FROM myfitness_database_tracker.User_progress
@@ -55,11 +54,12 @@ WHERE Username = 14895
 LIMIT 1
 ;
 
--- Deleting Username table as it is a duplicate of User_info so it is not needed in the database, 
---so its best to remove it to avoid any data duplicates and to keep the database clean and organised to aovid any confusion when retrieving data from the database in order to keep clean database efficient and avoid data redundacy
+-- Deleting Username table as it is a duplicate of User_info so it is not needed in the database
+-- Cleaning the data and making sure its standarised will avoid any duplicates and keep the data clean and organised to avoid confusion and mistakes when retrieving data from the datbase in order to keep the database efficient and avoid data redundacy 
+
 DROP TABLE Username;
 
--- GROUP BY takes rows with the same value in a column and groups them together to calculate statistics per group.
+-- GROUP BY takes rows with the sane value in a column and groups them together to calculate statistics per group
 -- HAVING filters groups after the aggregate functions are calculated
 
 SELECT Gender, AVG(age), Max(age), MIN(age), Count(age)
@@ -96,7 +96,7 @@ FROM User_info
 ORDER BY 2,5
 ;
 
--- Limit & Aliasing 
+-- Limit & Aliasing
 
 SELECT * 
 FROM User_health_data
@@ -116,7 +116,7 @@ FROM User_info;
 SELECT *
 FROM User_health_data;
 
--- joining tables to retrieve data from multiple data tables in a single query for a comprehensive view of data to draw conclusions and make informed decisions on related data
+-- Joining tables to retrieve users data from other tables in a single query for a comprehensive view of data to draw conclusions and make informed decisions on related data
 
 SELECT info.Username, FirstName, Age, Weight
 FROM User_info AS info
@@ -147,7 +147,7 @@ JOIN User_info U2
    ON U1.Username +1  = U2.Username
 ;
 
--- union operator to combine the data from multiple tables into a single table
+-- UNION operator to combine the data from multiple tables into a single table
 
 SELECT Username, 'FIT' AS LABEL
 From User_Progress
@@ -162,7 +162,9 @@ FROM User_daily_exercise_checkin
 WHERE Steps_Count > 7000 OR Exercise_duration > '00:25:00'
 ;
 
--- String Functions to manipulate and format the data to make it more readble and to get specific parts of the data
+-- String Functions used here to manipulate and format the data to make it more readable for the user 
+-- Changing the way data is formatted 
+-- And for getting certain parts of the data when need 
 
 SELECT FirstName, LENGTH(FirstName)
 FROM User_info
@@ -189,13 +191,16 @@ SELECT LastName, LOCATE('on', LastName)
 FROM User_info
 ;
 
--- concat function to combine the first name and last name into a full name 
+-- CONCAT function to combine users first and last name into a full name column 
+-- Easier to view and more effective at times than having two serpate columns for each user
+
 SELECT FirstName,LastName,
 CONCAT(FirstName,'  ',LastName) AS Full_name
 FROM User_info
 ;
 
--- Delimiter to change the statement terminator to allow for the creation of stored procedures that contain multiple statements without prematurely finisinng the procedure definition
+-- Delimiter changes the statement terminator to allow for the creation of stored procedures that contain multiple statements without prematurely finising the procedure definition
+
 DELIMITER $$
 CREATE PROCEDURE Above_Avg_Height2()
 BEGIN
@@ -208,10 +213,8 @@ WHERE Height > 170;
 END $$
 DELIMITER ;
 
---calling the stored procedure to execute the defined queries and retrieve the data of users with height above average to draw conclusions and make informed decisions regarding the users with above average height
+-- Calling the stored procedure to execute the defined queries and retrieve the data of users with height above average 
+-- Helps draw insightful conclusions and decisions regarding the users with above average height
 CALL Above_Avg_Height2();
-
- 
-
 
 
