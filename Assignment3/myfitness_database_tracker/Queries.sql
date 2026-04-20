@@ -1,3 +1,8 @@
+-- Data filtering by slecting specific records from the table and filtering the data using the WHERE clause
+-- only users that meet the specified condition are returned acoording to the given constraints in the WHERE clause
+
+-- Retrieving users data by their date of birth to allow the system to identify and keep track young fitness, notice patterns to draw conclusions regarding young fitness members and to apply aged based conditions when needed
+
 SELECT * 
 FROM myfitness_database_tracker.User_info
 WHERE DOB > '2001-12-31'
@@ -38,12 +43,24 @@ SELECT *
 FROM myfitness_database_tracker.User_daily_exercise_checkin
 order by Exercise_duration and Steps_Count desc 
 ;
+
+-- cleaning the data to remove any duplicates 
+-- -- Viewing all the data stored in user_progress table, then deleting a specific user
+-- using the WHERE clause to target the user with ID 14895.
+-- LIMIT 1 ensures that only one matching row is removed for safety, to not delete all the data.
 SELECT *
 From myfitness_database_tracker.User_progress;
 DELETE FROM myfitness_database_tracker.User_progress
 WHERE Username = 14895
 LIMIT 1
 ;
+
+-- Deleting Username table as it is a duplicate of User_info so it is not needed in the database, 
+--so its best to remove it to avoid any data duplicates and to keep the database clean and organised to aovid any confusion when retrieving data from the database in order to keep clean database efficient and avoid data redundacy
+DROP TABLE Username;
+
+-- GROUP BY takes rows with the same value in a column and groups them together to calculate statistics per group.
+-- HAVING filters groups after the aggregate functions are calculated
 
 SELECT Gender, AVG(age), Max(age), MIN(age), Count(age)
 FROM User_health_data
@@ -79,7 +96,7 @@ FROM User_info
 ORDER BY 2,5
 ;
 
--- Limit & Aliasing
+-- Limit & Aliasing 
 
 SELECT * 
 FROM User_health_data
@@ -98,6 +115,8 @@ FROM User_info;
 
 SELECT *
 FROM User_health_data;
+
+-- joining tables to retrieve data from multiple data tables in a single query for a comprehensive view of data to draw conclusions and make informed decisions on related data
 
 SELECT info.Username, FirstName, Age, Weight
 FROM User_info AS info
@@ -128,6 +147,8 @@ JOIN User_info U2
    ON U1.Username +1  = U2.Username
 ;
 
+-- union operator to combine the data from multiple tables into a single table
+
 SELECT Username, 'FIT' AS LABEL
 From User_Progress
 WHERE Current_BMI <22 AND Current_Weight > 50
@@ -141,7 +162,7 @@ FROM User_daily_exercise_checkin
 WHERE Steps_Count > 7000 OR Exercise_duration > '00:25:00'
 ;
 
--- String Functions
+-- String Functions to manipulate and format the data to make it more readble and to get specific parts of the data
 
 SELECT FirstName, LENGTH(FirstName)
 FROM User_info
@@ -168,11 +189,13 @@ SELECT LastName, LOCATE('on', LastName)
 FROM User_info
 ;
 
+-- concat function to combine the first name and last name into a full name 
 SELECT FirstName,LastName,
 CONCAT(FirstName,'  ',LastName) AS Full_name
 FROM User_info
 ;
 
+-- Delimiter to change the statement terminator to allow for the creation of stored procedures that contain multiple statements without prematurely finisinng the procedure definition
 DELIMITER $$
 CREATE PROCEDURE Above_Avg_Height2()
 BEGIN
@@ -185,15 +208,10 @@ WHERE Height > 170;
 END $$
 DELIMITER ;
 
+--calling the stored procedure to execute the defined queries and retrieve the data of users with height above average to draw conclusions and make informed decisions regarding the users with above average height
 CALL Above_Avg_Height2();
-CREATE TABLE Exercise_name 
-(Exercise_name_id INT PRIMARY KEY AUTO_INCREMENT,
-Exercise_name VARCHAR(50) NOT NULL
-);
-ALTER TABLE User_Progress
-ADD COLUMN Exercise_name_id INT,
-ADD FOREIGN KEY (Exercise_name_id) REFERENCES Exercise_name (Exercise_name_id);
 
+ 
 
 
 

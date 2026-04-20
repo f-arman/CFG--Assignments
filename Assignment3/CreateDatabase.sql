@@ -62,8 +62,8 @@ Steps_Count int
 ALTER TABLE User_info
 ADD email Varchar(50);
 
--- Normalising the data linking User_daily_exercise_checkin table and User_Progress
-
+-- Cleaning the data linking User_daily_exercise_checkin table and User_Progress
+--normalising the data to remove any duplicates and adding primary and foreign keys to link the tables 
 ALTER TABLE User_Progress
 ADD COLUMN Client_ID INT PRIMARY KEY AUTO_INCREMENT FIRST;
 
